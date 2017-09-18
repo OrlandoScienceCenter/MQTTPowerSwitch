@@ -1,8 +1,6 @@
+#define ssid "__your-wifi-network-name__"
+#define password "__your-wifi-network-password__"
 
-#define ssid "____your-wifi-network-name_____"
-
-#define password "____your-wifi-network-password_____"
-#define mqtt_server "____MQTT-IP-address"
-
-#define compTopic "__topic-1__"
-#define projTopic "__topic-2__"
+#define mqtt_server "__MQTT-IP-address__"
+#define topic1 "__full-topic-1-path__"
+#define topic2 "__full-topic-2-path__"

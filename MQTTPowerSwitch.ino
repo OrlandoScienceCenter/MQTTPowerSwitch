@@ -44,14 +44,14 @@ void loop() {
   if(!onCurState && onLastState){
     Serial.println("Sending on commands");
     snprintf (msg, 49, "powerOn");
-    client.publish(compTopic, msg);
-    client.publish(projTopic, msg);
+    client.publish(topic1, msg);
+    client.publish(topic2, msg);
   }
   else if(!offCurState && offLastState){
     Serial.println("Sending off commands");
     snprintf (msg, 49, "powerOff");
-    client.publish(compTopic, msg);
-    client.publish(projTopic, msg);
+    client.publish(topic1, msg);
+    client.publish(topic2, msg);
   }
   onLastState = onCurState;
   offLastState = offCurState;
@@ -64,12 +64,10 @@ void wifiSetup(){
   Serial.print(F("Connecting to "));
   Serial.println(ssid);
   WiFi.begin(ssid, password);
-
   while (WiFi.status() != WL_CONNECTED) {
     delay(500);
     Serial.print(F("."));
   }
-
   Serial.println();
   Serial.println(F("WiFi connected"));
   Serial.println(F("IP address: "));
@@ -77,22 +75,16 @@ void wifiSetup(){
 }
 
 void reconnect() {
-  // Loop until we're reconnected
   while (!client.connected()) {
     Serial.print(F("Attempting MQTT connection..."));
-    // Create a random client ID
     String clientId = F("ESPCli-");
     clientId += String(random(0xffff), HEX);
-    // Attempt to connect
     if (client.connect(clientId.c_str())) {
       Serial.println(F("connected"));
-      // And resubscribe
-      //client.subscribe(TOPIC_T);
     } else {
       Serial.print(F("failed, rc="));
       Serial.print(client.state());
       Serial.println(F(" try again in 5 seconds"));
-      // Wait 5 seconds before retrying
       delay(5000);
     }
   }
